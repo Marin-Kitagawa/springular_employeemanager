@@ -1,7 +1,8 @@
 package com.spacesstars.employeemanager.services;
 
+import com.spacesstars.employeemanager.exceptions.UserNotFoundException;
 import com.spacesstars.employeemanager.models.Employee;
-import com.spacesstars.employeemanager.repository.EmployeeRepository;
+import com.spacesstars.employeemanager.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,8 @@ public class EmployeeService {
     }
 
     public Employee findEmployeeById(Long id) {
-        return employeeRepository.findEmployeeById(id).orElseThrow(() -> new UserNotFoundException ("User by id " + id + " was not found"));
+        return employeeRepository.findEmployeeById(id)
+                .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
     }
 
     public void deleteEmployee(Long id) {
