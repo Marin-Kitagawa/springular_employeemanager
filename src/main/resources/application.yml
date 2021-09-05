@@ -1,1 +1,19 @@
-
+# MySQL Configuration
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/employeemanager
+    username: root
+    password: root
+  jpa:
+    # It is used to show the SQL being executed
+    show-sql: true
+    hibernate:
+      # The `create` option drops all the tables and creates a new one
+      # each time we run the application
+      # The `update` option only updates the tables without dropping them if they already exists
+      # Or creates them initially
+      # We don't need to lose the data and hence we use `update`
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
