@@ -1,4 +1,4 @@
-package com.spacesstars.employeemanager.repository;
+package com.spacesstars.employeemanager.repositories;
 
 import com.spacesstars.employeemanager.models.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     void deleteEmployeeById(Long id);
 
-    Optional findEmployeeById(Long id);
+    Optional<Employee> findEmployeeById(Long id);
     // Hold `Ctrl` key and then click on a something to get a detailed info on it
     
 }
