@@ -8,6 +8,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a
+          (click)="onOpenModal(null, 'add')"
           class="nav-link"
           href="#"
         >Add Employee <span class="sr-only">(current)</span></a>
@@ -28,7 +29,10 @@
   </div>
 </nav>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
+<div
+  class="container"
+  id="main-container"
+>
   <div class="row">
     <div *ngFor="let employee of employees" class="col-md-6 col-xl-3">
       <div class="card m-b-30">
@@ -48,6 +52,7 @@
         <div class="card-body">
           <div class="float-right btn-group btn-group-sm">
             <a
+              (click)="onOpenModal(employee, 'update')"
               class="btn btn-primary tooltips"
               data-original-title="Edit"
               data-placement="top"
