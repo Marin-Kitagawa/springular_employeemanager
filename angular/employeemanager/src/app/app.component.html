@@ -62,6 +62,7 @@
               <i class="fa fa-pencil"></i>
             </a>
             <a
+              (click)="onOpenModal(employee, 'delete')"
               class="btn btn-secondary tooltips"
               data-original-title="Delete"
               data-placement="top"
@@ -361,7 +362,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Are you sure want to delete employee {{deleteEmployee?.name}}</p>
+        <p>Are you sure want to delete employee {{deleteEmployee?.name}}?</p>
         <div class="modal-footer">
           <button
             class="btn btn-secondary"
@@ -371,7 +372,7 @@
             No
           </button>
           <button
-            (click)="onDeleteEmployee(deleteEmployee?.id)"
+            (click)="onDeleteEmployee(deleteEmployee!.id)"
             class="btn btn-danger"
             data-dismiss="modal"
           >
