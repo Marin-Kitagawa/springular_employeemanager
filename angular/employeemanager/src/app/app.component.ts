@@ -2,6 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {Employee} from "./interfaces/employee";
 import {EmployeeService} from "./services/employee.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit {
     );  // subscribe() notifies us when data comes back from the server
   }
 
-  public onOpenModal(employee: Employee, mode: string) : void {
+  public onOpenModal(employee: Employee | null, mode: string) : void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
     button.type = 'button';
@@ -47,8 +48,18 @@ export class AppComponent implements OnInit {
     button.click();
   }
 
-  public onAddEmployee(employee: Employee) : void {
-
+  public onAddEmployee(addForm: NgForm) : void {
+    // @ts-ignore
+    document.getElementById('add-employee-form').click();
+    this.employeeService.addEmployee(addForm.value).subscribe(
+      (response: Employee) => {
+        console.log(response);
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
   public onUpdateEmployee(employee: Employee) : void {
