@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   // The following is to hold all the Employees coming from the backend
   public employees!: Employee[];
   public deleteEmployee!: Employee;
-  public editEmployee!: Employee;
+  public editEmployee!: Employee | null;
 
   constructor(private employeeService: EmployeeService){}
 
@@ -44,6 +44,9 @@ export class AppComponent implements OnInit {
     if(['add', 'update', 'delete'].includes(mode)) {
       button.setAttribute('data-target', `#${mode}EmployeeModal`);
     }
+    if(mode === 'update') {
+      this.editEmployee = employee;
+    }
     container!.appendChild(button);
     button.click();
   }
@@ -55,6 +58,20 @@ export class AppComponent implements OnInit {
       (response: Employee) => {
         console.log(response);
         this.getEmployees();
+        addForm.reset();  // To clear the form of the details of the previously added employee
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+  }
+
+  public onUpdateEmployee(employee: Employee) : void {
+    this.employeeService.updateEmployee(employee).subscribe(
+      (response: Employee) => {
+        console.log(response);
+        this.getEmployees();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -62,14 +79,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  public onUpdateEmployee(employee: Employee) : void {
-
-  }
-
   public onDeleteEmployee(employee: number | undefined) : void {
 
   }
-
-
-
 }
