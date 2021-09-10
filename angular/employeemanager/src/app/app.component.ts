@@ -12,7 +12,7 @@ import {NgForm} from "@angular/forms";
 export class AppComponent implements OnInit {
   // The following is to hold all the Employees coming from the backend
   public employees!: Employee[];
-  public deleteEmployee!: Employee;
+  public deleteEmployee!: Employee | null;
   public editEmployee!: Employee | null;
 
   constructor(private employeeService: EmployeeService){}
@@ -41,11 +41,16 @@ export class AppComponent implements OnInit {
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
-    if(['add', 'update', 'delete'].includes(mode)) {
+    if(mode === 'add') {
       button.setAttribute('data-target', `#${mode}EmployeeModal`);
     }
     if(mode === 'update') {
+      button.setAttribute('data-target', `#${mode}EmployeeModal`);
       this.editEmployee = employee;
+    }
+    if(mode === 'delete') {
+      button.setAttribute('data-target', `#${mode}EmployeeModal`);
+      this.deleteEmployee = employee;
     }
     container!.appendChild(button);
     button.click();
@@ -79,7 +84,15 @@ export class AppComponent implements OnInit {
     );
   }
 
-  public onDeleteEmployee(employee: number | undefined) : void {
-
+  public onDeleteEmployee(employeeId: number) : void {
+    this.employeeService.deleteEmployee(employeeId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }
