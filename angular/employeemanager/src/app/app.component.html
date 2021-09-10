@@ -16,8 +16,12 @@
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input
+        #key="ngModel"
+        (ngModelChange)="searchEmployees(key.value)"
         aria-label="Search Employees"
         class="form-control mr-sm-2"
+        name="key"
+        ngModel
         placeholder="Search Employees"
         type="search"
       >
